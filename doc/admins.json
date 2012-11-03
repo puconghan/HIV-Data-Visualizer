@@ -1,0 +1,26 @@
+[
+  {
+    "username":"puconghan",
+    "password":"ase",
+    "priority":"high",
+    "basedcountry":"China"
+  },
+  {
+    "username":"shujianbu",
+    "password":"ase",
+    "priority":"high",
+    "basedcountry":"China"
+  },
+  {
+    "username":"taocheng",
+    "password":"ase",
+    "priority":"high",
+    "basedcountry":"China"
+  },
+  {
+    "username":"nanzhuwang",
+    "password":"ase",
+    "priority":"high",
+    "basedcountry":"China"
+  }
+]
