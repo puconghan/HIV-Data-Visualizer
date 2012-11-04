@@ -1,5 +1,12 @@
 class HivdatafetcherController < ApplicationController
 	def index
-		@gdp = Gdp.all
+		@hivs = Hiv.all
+		@gdps = Gdp.all
+		@healthExpenditures = HealthExpenditure.all
+		@improvedSanitationFacilities = ImprovedSanitationFacilities.all
+		@improvedWaterSources = ImprovedWaterSource.all
+		@literacyRates = LiteracyRate.all
+		@ruralPopulations = RuralPopulation.all
+		@unemploymentRates = UnemploymentRate.all
 	end
 end

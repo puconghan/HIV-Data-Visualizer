@@ -1,8 +1,16 @@
 <p>Current Data</p>
-<%= 
-str = ''
-@gdp.each do |t|
- str<<t.country_or_area
-end 
-str
-%>
+
+<table>
+	<tr>
+		<th>Country</th>
+		<th>Year</th>
+		<th>Value</th>
+	</tr>
+<% @gdps.each do |gdp| %>
+	<tr>
+		<th><%= gdp.country %></th>
+		<th><%= gdp.year %></th>
+		<th><%= gdp.value %></th>
+	</tr>
+<% end %>
+</table>
