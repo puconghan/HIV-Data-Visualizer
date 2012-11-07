@@ -1,5 +1,6 @@
 HIVDataFetcher::Application.routes.draw do
   resources :users
+  resources :hivdatafetcher
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,7 +51,7 @@ HIVDataFetcher::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'Hivdatafetcher#index'
+  # root :to => 'Hivdatafetcher#index'
 
   # See how all your routes lay out with "rake routes"
 

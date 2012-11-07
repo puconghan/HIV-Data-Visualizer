@@ -8,6 +8,7 @@ gem 'rails', '3.2.8'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'country_select'
+gem 'sundawg_country_codes'
 gem 'devise'
 
 # Gems used only for assets and not required

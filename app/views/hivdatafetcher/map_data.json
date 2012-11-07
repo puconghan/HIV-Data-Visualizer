@@ -1,0 +1,22 @@
+[
+    {
+        "DisplayName": "United States",
+        "Name": "US",
+        "population": 307006550
+    },
+    {
+        "DisplayName": "Canada",
+        "Name": "CA",
+        "population": 33739900
+    },
+    {
+        "DisplayName": "United Kingdom",
+        "Name": "GB",
+        "population": 61838154
+    },
+    {
+        "DisplayName": "Mexico",
+        "Name": "MX",
+        "population": 107431225
+    }
+]

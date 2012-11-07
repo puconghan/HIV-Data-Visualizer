@@ -1,16 +1,215 @@
-<p>Current Data</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>HIV World Prevalence</title>
+  <%= stylesheet_link_tag 'main_style.css' %>
+  <%= stylesheet_link_tag 'jquery-ui.css' %>
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+  <script> $(function() { $( "#tabs" ).tabs(); }); </script>
 
-<table>
-	<tr>
-		<th>Country</th>
-		<th>Year</th>
-		<th>Value</th>
-	</tr>
-<% @gdps.each do |gdp| %>
-	<tr>
-		<th><%= gdp.country %></th>
-		<th><%= gdp.year %></th>
-		<th><%= gdp.value %></th>
-	</tr>
-<% end %>
-</table>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages: ['geomap']});
+    google.load('search', '1');
+
+    $(function() {
+      $.getJSON('http://127.0.0.1:3000/hivdatafetcher.json', function(data) {        
+          var map = new google.visualization.DataTable();
+
+          map.addColumn('string', 'Country');
+          map.addColumn('number', 'HIV Prevalence');
+          map.addColumn('string', 'Description');
+            
+          $.each(data, function(i,v) {
+		 map.addRow([v.name, parseFloat(v.value), v.displayname]);
+          });
+
+          var geomap = new google.visualization.GeoMap(
+            document.getElementById('visualization'));
+          geomap.draw(map, null);
+      });
+   });
+
+   var newsSearch;
+   function searchComplete() {
+        if (newsSearch.results && newsSearch.results.length > 0) {
+            for (var i = 0; i < newsSearch.results.length; i++) {
+                    var tr = document.createElement('tr');
+                    
+                    var p = document.createElement('p');
+                    var a = document.createElement('a');
+                    a.href= newsSearch.results[i].unescapedUrl;
+                    a.innerHTML = newsSearch.results[i].title;
+                    p.appendChild(a);
+                    tr.appendChild(p);
+                    
+                    if(newsSearch.results[i].image != undefined){
+                        var divOut = document.createElement('div');
+                        divOut.setAttribute('class', 'fr_img');
+                        var div = document.createElement('div');
+                        div.setAttribute('class', 'image_wrapper');
+                        var aimg = document.createElement('a');
+                        aimg.href = newsSearch.results[i].unescapedUrl;
+                        var img = document.createElement('img');
+                        img.src = newsSearch.results[i].image.url;
+                        img.border = 0;
+                        img.width = 30;
+                        img.height = 30;
+                        aimg.appendChild(img);
+                        div.appendChild(aimg);
+                        divOut.appendChild(div);
+                        p.appendChild(divOut);
+                    }
+
+                    $('#googleNews_content').append(tr);
+            }
+        }
+   }
+
+   function onLoad() {
+         newsSearch = new google.search.NewsSearch();
+        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+        newsSearch.execute('HIV AIDS');
+        google.search.Search.getBranding('branding');
+        
+   }
+
+   google.setOnLoadCallback(onLoad);
+
+    /* Youtube Vedio */
+    $(document).ready(function(){
+        keywords = "HIV/" + "world";
+        var doc = {};
+
+        suc_fun = function(doc){
+            entries = doc.getElementsByTagName('feed')[0].getElementsByTagName('entry');
+            console.log(entries);
+            console.log(entries.length);
+            console.log(entries[0]);
+            for(var i=0; i<= 3 && i<entries.length; i++){
+                console.log(entries[i]);
+                /*
+                title = entries[i].getElementsByTagName('title')[0].getElementsByTagName('title')[0].textContent;
+                console.log(title);
+                /*title = entries[i].getElementsByTagName('title')[0].toString();
+                console.log(title);
+            */
+            }
+            /*$('#youtubeVideos_content').append();
+            */
+    
+        };
+
+        fail_fun = function(ret){
+        };
+        
+        $.ajax({
+            url: "https://gdata.youtube.com/feeds/api/videos/-/" + keywords + "?v=2",
+            type: 'GET',
+            async: false
+        }).success(suc_fun).fail(fail_fun);
+    
+    });
+
+</script>
+</head>
+<body> 
+
+<div id="templatemo_wrapper">
+
+	 <div id="templatemo_header">
+    
+        <div id="templatemo_menu">
+            <ul>
+                <li><a href="index.html" class="current">Home</a></li>
+                <li><a href="data.html">Data</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>    	    
+        </div> 
+        
+        <div id="site_title">
+          <h1><a href="index.html" target="_parent">Global <strong>HIV</strong><span>Prevalence Overview</span></a></h1>            
+        </div>
+    
+    </div> 
+    
+    <div id="templatemo_map">
+    
+      <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Wolrd Map</a></li>
+            <li><a href="#tabs-2">Country Info</a></li>
+            <li><a href="#tabs-3">Comparison</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div id="visualization" style="width: 600px; height: 400px;"></div>
+        </div>
+        <div id="tabs-2">
+            
+        </div>
+        <div id="tabs-3">
+        
+        </div>
+      </div>
+      
+    </div>
+    <div id="templatemo_main">
+    
+    	<div id="googleNews" class="three_column margin_r35 vertical_divider">
+        	<h2>Google News</h2>
+            
+            <div class="image_wrapper"><a href="http://www.templatemo.com/page/1" target="_parent"><img src="images/templatemo_image_03.jpeg" width = "230px" height = "100px" alt="CSS Templates" /></a></div>
+    			<p>Phasellus tempus, justo et laoreet varius, odio mi ultrices libero, nec   faucibus dui felis eu dui. Cras ac odio ac mi imperdiet sollicitudin.</p>  	
+          <p><em>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque cursus velit at ornare. Donec augue lacus, porttitor in euismod a, convallis ut erat.</em></p>
+            <div id="googleNews_content"> </div>
+          <div class="button float_r"><a href="#">More News...</a></div>
+            
+        </div>
+  		<div class="three_column margin_r35 vertical_divider">
+        	<h2> YouTube Video</h2>
+
+          <div class="image_wrapper"><a href="http://www.templatemo.com/page/2" target="_parent"><img src="images/templatemo_image_01.jpg" alt="Web Templates" /></a></div>
+            <p>Suspendisse ullamcorper aliquam placerat. Integer fringilla felis eget libero ullamcorper lacinia. Curabitur ac magna et nisl luctus rhoncus.</p>
+            <p> Curabitur euismod scelerisque lacus.   Cras pretium sem sed odio. Vestibulum nisl mauris, malesuada nec, dictum   in, molestie in, pede.</p>
+          <ul class="templatemo_list">
+                <li>Morbi sed nulla ac est cursus suscipit eu ac lectus.</li>
+                <li>Curabitur ullamcorper nibh nisi, sed eleifend dolor.</li>
+                <li>Pellentesque adipiscing sollicitudin sapien nec aliquet.</li>
+          </ul>
+            
+            <div id="youtubeVideos_content"> </div>
+
+          <div class="button float_r"><a href="#">More Videos...</a></div>
+
+        </div>
+         <div class="three_column">
+         	<h2>About The Country</h2>
+            <div class="image_wrapper"><a href="http://www.templatemo.com/page/3" target="_parent"><img src="images/templatemo_image_02.jpg" alt="Free Templates" /></a></div>
+           <p>In leo tellus, porta sit amet luctus ac, condimentum quis odio. Cras vestibulum, ipsum tincidunt aliquet consequat. <a href="#">More...</a></p>
+			<p>Maecenas dignissim, quam a posuere scelerisque, ligula arcu dictum   turpis, id tempus turpis erat at nulla. <a href="#">More...</a></p>
+            
+           <div class="button float_r"><a href="#">All Info...</a></div>
+             
+             <div class="cleaner_h30"></div>
+             <h2>Quotes</h2>
+                <blockquote>
+                    <p>No war on the face of the Earth is more destructive than the AIDS pandemic.</p>
+                    <cite>Colin Powell - <span>First African-American Secretary of State</span></cite>
+                </blockquote>
+        </div>
+        
+        <div class="cleaner"></div>
+        
+    </div>
+    
+     <div id="templatemo_footer">
+        Copyright © 2012 | Network Fetcher | <a href= "http://score-contest.org/2013/"> Student Contest on Software Engineering </a>    
+     </div> 
+
+</div> 
+
+</body>
+</html>
