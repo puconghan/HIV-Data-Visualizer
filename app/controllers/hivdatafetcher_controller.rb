@@ -32,17 +32,4 @@ puts(t.value)
     			format.json { render json: @data_pack }
    		end
 	end
-
-	def whatever
-
-		@gdps = Gdp.all
-		@healthExpenditures = HealthExpenditure.all
-		@improvedSanitationFacilities = ImprovedSanitationFacilities.all
-		@improvedWaterSources = ImprovedWaterSource.all
-		@literacyRates = LiteracyRate.all
-		@ruralPopulations = RuralPopulation.all
-		@unemploymentRates = UnemploymentRate.all
-
-
-	end
 end

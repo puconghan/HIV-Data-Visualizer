@@ -16,25 +16,27 @@
 	<div id="templatemo_header">
 
         <div id="templatemo_menu">
-            <ul>
+          <ul>
                 <li><%= link_to "Home", root_path %></li>
-                <li><a href="data.html">Data</a></li>
-                <li><a href="stories.html">Stories</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><%= link_to "Data", data_page_path %></li>
+                <li><%= link_to "Stories", stories_page_path %></li>
+                <li><%= link_to "Contact", contact_page_path %></li>
                 <div id="user_nav">
-    			<% if user_signed_in? %>
-    				<% if current_user.priority == "low" %>
-        				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
-        			<% else %>
-        				<li><%=link_to "Manage User", manage_user_path %></li>
-        				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
-        			<% end %>
-    			<% else %>
-        			<li><%= link_to 'Sign Up', new_user_registration_path %></li>
-        			<li><%= link_to 'Sign in', new_user_session_path %></li>
-				<% end %>
+          <% if user_signed_in? %>
+            <% if current_user.priority == "low" %>
+              <li><%= link_to "Update Account", edit_user_registration_path, :method => :delete %></li>
+                <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+              <% else %>
+                <li><%= link_to "Update Account", edit_user_registration_path, :method => :delete %></li>
+                <li><%=link_to "Manage User", manage_user_path %></li>
+                <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+              <% end %>
+          <% else %>
+              <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <li><%= link_to 'Sign in', new_user_session_path %></li>
+        <% end %>
 </div>
-            </ul>    	    
+            </ul>    
         </div> 
         
         <div id="site_title">

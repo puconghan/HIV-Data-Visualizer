@@ -3,7 +3,7 @@ HIVDataFetcher::Application.routes.draw do
   	get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
   end
   #resources :users
-  resources :hivdatafetcher
+  #resources :hivdatafetcher
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -14,6 +14,12 @@ HIVDataFetcher::Application.routes.draw do
   match 'users/manage' => 'user#manage', :as => :manage_user
   match 'users/edituser' => 'user#edituser', :as => :edit_admin_user
   match 'users/delete' => 'user#delete', :as => :delete_user
+  match 'users/update' => 'user#update', :as => :update_user
+  
+  match 'hivdatafetcher/data', :controller => 'hivdatafetcher', :action => 'data', :via => :get, :as => 'data_page'
+  match 'hivdatafetcher/stories', :controller => 'hivdatafetcher', :action => 'stories', :via => :get, :as => 'stories_page'
+  match 'hivdatafetcher/contact', :controller => 'hivdatafetcher', :action => 'contact', :via => :get, :as => 'contact_page'
+  match 'hivdatafetcher', :controller => 'hivdatafetcher', :action => 'index', :via => :get
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
