@@ -9,12 +9,12 @@ class User
   ## Database authenticatable
   field :username,               :type => String, :default => ""
   field :email,              :type => String, :default => ""
+  field :basedcountry,               :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
   
-  validates_presence_of :username
-  validates_presence_of :encrypted_password
+  validates_presence_of :username, :encrypted_password, :basedcountry
   validates_uniqueness_of :username, :email, :case_sensitive => false
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :username, :email, :basedcountry, :password, :password_confirmation, :remember_me
   
   ## Recoverable
   field :reset_password_token,   :type => String
