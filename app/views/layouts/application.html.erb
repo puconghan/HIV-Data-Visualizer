@@ -8,11 +8,12 @@
   <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
   <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
   <script> $(function() { $( "#tabs" ).tabs(); }); </script>
+  <script> $(function() { $( "#selectable" ).selectable();}); </script> 
 
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript">
     google.load('visualization', '1', {packages: ['geomap']});
-    google.load('search', '1');
+    google.load('search', '1'); 
 
     $(function() {
       $.getJSON('http://127.0.0.1:3000/hivdatafetcher.json', function(data) {        
