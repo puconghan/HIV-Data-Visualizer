@@ -8,12 +8,11 @@
   <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
   <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
   <script> $(function() { $( "#tabs" ).tabs(); }); </script>
-  <script> $(function() { $( "#selectable" ).selectable();}); </script> 
 
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript">
     google.load('visualization', '1', {packages: ['geomap']});
-    google.load('search', '1'); 
+    google.load('search', '1');
 
     $(function() {
       $.getJSON('http://127.0.0.1:3000/hivdatafetcher.json', function(data) {        
@@ -26,12 +25,9 @@
 		 map.addRow([v.name, parseFloat(v.value), v.displayname]);
           });
 
-            var options = {};
-            options['colors'] = [0xc0c0c0, 0xf00000, 0xff0000];
-          
           var geomap = new google.visualization.GeoMap(
             document.getElementById('visualization'));
-          geomap.draw(map, options);
+          geomap.draw(map, null);
       });
    });
 
@@ -147,7 +143,7 @@
 
         <div id="templatemo_menu">
             <ul>
-                <li><a href="index.html" class="current">Home</a></li>
+                <li><%= link_to "Home", root_path %></li>
                 <li><a href="data.html">Data</a></li>
                 <li><a href="stories.html">Stories</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -156,7 +152,7 @@
     				<% if current_user.priority == "low" %>
         				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
         			<% else %>
-        				<li>Manage User</li>
+        				<li><%=link_to "Manage User", @user %></li>
         				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
         			<% end %>
     			<% else %>
