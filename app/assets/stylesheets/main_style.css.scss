@@ -223,11 +223,16 @@ em { color: #CCCC66; }
 }
 
 
-#feedback { font-size: 0.6em; width: 200px; margin-top: -350px; margin-left: 750px; text-align: center;}
+#feedback { font-size: 0.6em; width: 350px; margin-top: -300px; margin-left: 660px; text-align: center;}
     #selectable .ui-selecting { background: #c5bba4; } 
     #selectable .ui-selected { background: #413a29; color: white; }
     #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
     #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+
+#scrollyear {margin-top: -280px; margin-left: 600px; text-align: center;}    
+
+#displayInfo {margin-top: -310px; margin-left: 700px; text-align: center;}
+
 
 #templatemo_sidebar {
 	float: right;

@@ -1,11 +1,26 @@
-  <script> $(function() { $( "#tabs" ).tabs(); }); </script>
-  <script> $(function() { $( "#selectable" ).selectable(); }); </script> 
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script> $(function() { $( "#tabs" ).tabs(); }); </script>
+  <script> $(function() { $( "#selectable" ).selectable(); }); </script>   
+  <script>
+    $(function() {
+        $( "#slider-vertical" ).slider({
+            orientation: "vertical",
+            range: "min",
+            min: 1960,
+            max: 2011,
+            value: 2011,
+            slide: function( event, ui ) {
+                $( "#amount" ).val( ui.value );
+                // var YEAR = ui.value;
+            }
+        });
+        $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+    });
+    </script>
   
   <script>
-    function myFunction()
+    function myFunction(FACTOR)
     {
-    var FACTOR="Volvo";
     document.getElementById("demo").innerHTML= FACTOR;
     }
   </script>
@@ -152,19 +167,28 @@
         <div id="tabs-0"> </div>
         <div id="tabs-1">
             <div id="visualization" style="width: 600px; height: 400px;"></div>
-            <h2 id="demo"></h2>
             <div id="feedback"> 
               <ol id="selectable">
-                <li class="ui-widget-content" onclick="myFunction()">Item 1</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 2</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 3</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 4</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 5</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 6</li>
-                <li class="ui-widget-content" onclick="myFunction()">Item 7</li>
+                <li class="ui-widget-content" onclick="myFunction('Health Expenditure')">Health Expenditure</li>
+                <li class="ui-widget-content" onclick="myFunction('GDP')">GDP</li>
+                <li class="ui-widget-content" onclick="myFunction('Improved Water Source')">Improved Water Source</li>
+                <li class="ui-widget-content" onclick="myFunction('Rural Population')">Rural Population</li>
+                <li class="ui-widget-content" onclick="myFunction('Improved Sanitation Facilities ')">Improved Sanitation Facilities </li>
+                <li class="ui-widget-content" onclick="myFunction('Literacy Rate')">Literacy Rate</li>
+                <li class="ui-widget-content" onclick="myFunction('Unemployment Rate')">Unemployment Rate</li>
               </ol>
-            </div> 
+            </div>
+            <<div id="scrollyear">   
+              <div id="slider-vertical" style="height: 250px;">
+                <p style="margin-top: -60px;">
+                  <label for="amount">Year:</label>
+                  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold; width: 50px;" />
+                </p>
+              </div> 
+            </div>
+            <div id="displayInfo"> This is a global data visualization of <p id="demo"></p></div>      
         </div>
+        
         <div id="tabs-2">
             
         </div>
