@@ -41,6 +41,7 @@
                     var a = document.createElement('a');
                     a.href= newsSearch.results[i].unescapedUrl;
                     a.innerHTML = newsSearch.results[i].title;
+                    a.target = '_blank';
                     p.appendChild(a);
                     tr.appendChild(p);
                     
@@ -51,6 +52,7 @@
                         div.setAttribute('class', 'image_wrapper');
                         var aimg = document.createElement('a');
                         aimg.href = newsSearch.results[i].unescapedUrl;
+                        aimg.target = '_blank';
                         var img = document.createElement('img');
                         img.src = newsSearch.results[i].image.url;
                         img.border = 0;
@@ -84,20 +86,26 @@
 
         suc_fun = function(doc){
             entries = doc.getElementsByTagName('feed')[0].getElementsByTagName('entry');
-            console.log(entries);
-            console.log(entries.length);
-            console.log(entries[0]);
             for(var i=0; i<= 3 && i<entries.length; i++){
                 console.log(entries[i]);
-                /*
-                title = entries[i].getElementsByTagName('title')[0].getElementsByTagName('title')[0].textContent;
+                title = entries[i].getElementsByTagName('title')[0].textContent;
                 console.log(title);
-                /*title = entries[i].getElementsByTagName('title')[0].toString();
-                console.log(title);
-            */
+                url = entries[i].getElementsByTagName('content')[0].getAttribute('src');
+                console.log(url);
+                time = entries[i].getElementsByTagName('published')[0].textContent;
+                time = time.substring(0, 10);
+                console.log(time);
+                var p = document.createElement('p');
+                var a = document.createElement('a');
+                var pp = document.createElement('p');
+                a.href= url;
+                a.innerHTML = title;
+                a.target = '_blank';
+                pp.innerHTML = time;
+                p.appendChild(a);
+                p.appendChild(pp);
+                $('#youtubeVideos_content').append(p);
             }
-            /*$('#youtubeVideos_content').append();
-            */
     
         };
 
@@ -107,7 +115,7 @@
         $.ajax({
             url: "https://gdata.youtube.com/feeds/api/videos/-/" + keywords + "?v=2",
             type: 'GET',
-            async: false
+            async: true
         }).success(suc_fun).fail(fail_fun);
     
     });
