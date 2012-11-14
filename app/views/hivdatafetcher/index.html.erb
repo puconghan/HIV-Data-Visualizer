@@ -1,24 +1,167 @@
+  <script> $(function() { $( "#tabs" ).tabs(); }); </script>
+  <script> $(function() { $( "#selectable" ).selectable(); }); </script> 
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  
+  <script>
+    function myFunction()
+    {
+    var FACTOR="Volvo";
+    document.getElementById("demo").innerHTML= FACTOR;
+    }
+  </script>
+  
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages: ['geomap']});
+    google.load('search', '1');
+
+    $(function() {
+      $.getJSON('http://127.0.0.1:3000/hivdatafetcher.json', function(data) {        
+          var map = new google.visualization.DataTable(); 
+          map.addColumn('string', 'Country');
+          map.addColumn('number', 'HIV Prevalence');
+          map.addColumn('string', 'Description');
+            
+          $.each(data, function(i,v) {
+     map.addRow([v.name, parseFloat(v.value), v.displayname]);
+          });
+
+          var geomap = new google.visualization.GeoMap(
+            document.getElementById('visualization'));
+          geomap.draw(map, null);
+      });
+   });
+
+   var newsSearch;
+   function searchComplete() {
+        if (newsSearch.results && newsSearch.results.length > 0) {
+            for (var i = 0; i < newsSearch.results.length; i++) {
+                    var tr = document.createElement('tr');
+                    
+                    var p = document.createElement('p');
+                    var a = document.createElement('a');
+                    a.href= newsSearch.results[i].unescapedUrl;
+                    a.innerHTML = newsSearch.results[i].title;
+                    p.appendChild(a);
+                    tr.appendChild(p);
+                    
+                    if(newsSearch.results[i].image != undefined){
+                        var divOut = document.createElement('div');
+                        divOut.setAttribute('class', 'fr_img');
+                        var div = document.createElement('div');
+                        div.setAttribute('class', 'image_wrapper');
+                        var aimg = document.createElement('a');
+                        aimg.href = newsSearch.results[i].unescapedUrl;
+                        var img = document.createElement('img');
+                        img.src = newsSearch.results[i].image.url;
+                        img.border = 0;
+                        img.width = 30;
+                        img.height = 30;
+                        aimg.appendChild(img);
+                        div.appendChild(aimg);
+                        divOut.appendChild(div);
+                        p.appendChild(divOut);
+                    }
+
+                    $('#googleNews_content').append(tr);
+            }
+        }
+   }
+
+   function onLoad() {
+         newsSearch = new google.search.NewsSearch();
+        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+        newsSearch.execute('HIV AIDS');
+        google.search.Search.getBranding('branding');
+        
+   }
+
+   google.setOnLoadCallback(onLoad);
+
+    /* Youtube Vedio */
+    $(document).ready(function(){
+        keywords = "HIV/" + "world";
+        var doc = {};
+
+        suc_fun = function(doc){
+            entries = doc.getElementsByTagName('feed')[0].getElementsByTagName('entry');
+            console.log(entries);
+            console.log(entries.length);
+            console.log(entries[0]);
+            for(var i=0; i<= 3 && i<entries.length; i++){
+                console.log(entries[i]);
+                /*
+                title = entries[i].getElementsByTagName('title')[0].getElementsByTagName('title')[0].textContent;
+                console.log(title);
+                /*title = entries[i].getElementsByTagName('title')[0].toString();
+                console.log(title);
+            */
+                /*console.log(entries[i]);
+                */
+                title = entries[i].getElementsByTagName('title')[0].textContent;
+                /*console.log(title);
+                */
+                url = entries[i].getElementsByTagName('content')[0].getAttribute('src');
+                /*console.log(url);
+                */
+                time = entries[i].getElementsByTagName('published')[0].textContent;
+                time = time.substring(0, 10);
+                /*console.log(time);
+                */
+                var p = document.createElement('p');
+                var a = document.createElement('a');
+                var pp = document.createElement('p');
+                a.href= url;
+                a.innerHTML = title;
+                a.target = '_blank';
+                pp.innerHTML = time;
+                p.appendChild(a);
+                p.appendChild(pp);
+                $('#youtubeVideos_content').append(p);
+            }
+            /*$('#youtubeVideos_content').append();
+            */
+    
+        };
+
+        fail_fun = function(ret){
+        };
+        
+        $.ajax({
+            url: "https://gdata.youtube.com/feeds/api/videos/-/" + keywords + "?v=2",
+            type: 'GET',
+            async: false
+        }).success(suc_fun).fail(fail_fun);
+    
+    });
+
+</script>
+
+
 <div id="templatemo_wrapper">
     
     <div id="templatemo_map">
-    
+
       <div id="tabs">
         <ul>
+            <li><a href="#tabs-0">Favorite</a></li>
             <li><a href="#tabs-1">Wolrd Map</a></li>
             <li><a href="#tabs-2">Country Info</a></li>
             <li><a href="#tabs-3">Comparison</a></li>
         </ul>
+        
+        <div id="tabs-0"> </div>
         <div id="tabs-1">
             <div id="visualization" style="width: 600px; height: 400px;"></div>
+            <h2 id="demo"></h2>
             <div id="feedback"> 
               <ol id="selectable">
-                <li class="ui-widget-content">Item 1</li>
-                <li class="ui-widget-content">Item 2</li>
-                <li class="ui-widget-content">Item 3</li>
-                <li class="ui-widget-content">Item 4</li>
-                <li class="ui-widget-content">Item 5</li>
-                <li class="ui-widget-content">Item 6</li>
-                <li class="ui-widget-content">Item 7</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 1</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 2</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 3</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 4</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 5</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 6</li>
+                <li class="ui-widget-content" onclick="myFunction()">Item 7</li>
               </ol>
             </div> 
         </div>
