@@ -41,7 +41,6 @@
                     var a = document.createElement('a');
                     a.href= newsSearch.results[i].unescapedUrl;
                     a.innerHTML = newsSearch.results[i].title;
-                    a.target = '_blank';
                     p.appendChild(a);
                     tr.appendChild(p);
                     
@@ -52,7 +51,6 @@
                         div.setAttribute('class', 'image_wrapper');
                         var aimg = document.createElement('a');
                         aimg.href = newsSearch.results[i].unescapedUrl;
-                        aimg.target = '_blank';
                         var img = document.createElement('img');
                         img.src = newsSearch.results[i].image.url;
                         img.border = 0;
@@ -86,26 +84,20 @@
 
         suc_fun = function(doc){
             entries = doc.getElementsByTagName('feed')[0].getElementsByTagName('entry');
+            console.log(entries);
+            console.log(entries.length);
+            console.log(entries[0]);
             for(var i=0; i<= 3 && i<entries.length; i++){
                 console.log(entries[i]);
-                title = entries[i].getElementsByTagName('title')[0].textContent;
+                /*
+                title = entries[i].getElementsByTagName('title')[0].getElementsByTagName('title')[0].textContent;
                 console.log(title);
-                url = entries[i].getElementsByTagName('content')[0].getAttribute('src');
-                console.log(url);
-                time = entries[i].getElementsByTagName('published')[0].textContent;
-                time = time.substring(0, 10);
-                console.log(time);
-                var p = document.createElement('p');
-                var a = document.createElement('a');
-                var pp = document.createElement('p');
-                a.href= url;
-                a.innerHTML = title;
-                a.target = '_blank';
-                pp.innerHTML = time;
-                p.appendChild(a);
-                p.appendChild(pp);
-                $('#youtubeVideos_content').append(p);
+                /*title = entries[i].getElementsByTagName('title')[0].toString();
+                console.log(title);
+            */
             }
+            /*$('#youtubeVideos_content').append();
+            */
     
         };
 
@@ -115,14 +107,12 @@
         $.ajax({
             url: "https://gdata.youtube.com/feeds/api/videos/-/" + keywords + "?v=2",
             type: 'GET',
-            async: true
+            async: false
         }).success(suc_fun).fail(fail_fun);
     
     });
 
 </script>
-
-
 </head>
 
 <body>
@@ -138,7 +128,7 @@
     			<% if user_signed_in? %>
         			<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
     			<% else %>
-        			<li><%= link_to 'New User', new_user_registration_path %></li>
+        			<li><%= link_to 'Sign Up', new_user_registration_path %></li>
         			<li><%= link_to 'Sign in', new_user_session_path %></li>
 				<% end %>
 </div>
@@ -158,19 +148,8 @@
 
 <div id="templatemo_wrapper">
 	<div id="templatemo_footer">
-         
-  <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
-  <script>
-  new TWTR.Widget(
-      {version: 2,type: 'search',search: '#HIV',interval: 3000,title: '',subject: '#HIV',width: 900, height: 200,
-    theme: {shell: {background: '#1d1400',color: '#ffffff'},tweets: {background: '#c5bba4',color: '#f9f8f5',links: '#1d1400'}},
-    features: { scrollbar: false, loop: true, live: true, behavior: 'default'}}).render().start();
-  </script>
-
-  Copyright © 2012 | Network Fetcher | <a href= "http://score-contest.org/2013/"> Student Contest on Software Engineering </a>
-  
+		Copyright © 2012 | Network Fetcher | <a href= "http://score-contest.org/2013/"> Student Contest on Software Engineering </a>    
 	</div>
-
 </div>
 </body>
 </html>
