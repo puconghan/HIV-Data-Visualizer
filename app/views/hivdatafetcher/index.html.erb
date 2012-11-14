@@ -11,17 +11,18 @@
             value: 2011,
             slide: function( event, ui ) {
                 $( "#amount" ).val( ui.value );
-                // var YEAR = ui.value;
             }
         });
         $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
     });
+    
     </script>
   
   <script>
     function myFunction(FACTOR)
     {
-    document.getElementById("demo").innerHTML= FACTOR;
+      var YEAR = $( "#slider-vertical" ).slider( "value" );     
+      document.getElementById("demo").innerHTML= FACTOR + " " + YEAR;
     }
   </script>
   
@@ -30,7 +31,8 @@
     google.load('search', '1');
 
     $(function() {
-      $.getJSON('http://127.0.0.1:3000/hivdatafetcher.json', function(data) {        
+        jsonurl = 'http://127.0.0.1:3000/' + 'hivdatafetcher.json'; 
+      $.getJSON(jsonurl , function(data) {        
           var map = new google.visualization.DataTable(); 
           map.addColumn('string', 'Country');
           map.addColumn('number', 'HIV Prevalence');
@@ -42,7 +44,7 @@
 
           var geomap = new google.visualization.GeoMap(
             document.getElementById('visualization'));
-          geomap.draw(map, null);
+          geomap.draw(map, null);showZoomOut; 
       });
    });
 
