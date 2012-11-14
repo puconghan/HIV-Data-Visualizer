@@ -153,7 +153,12 @@
                 <li><a href="contact.html">Contact</a></li>
                 <div id="user_nav">
     			<% if user_signed_in? %>
-        			<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+    				<% if current_user.priority == "low" %>
+        				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+        			<% else %>
+        				<li>Manage User</li>
+        				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+        			<% end %>
     			<% else %>
         			<li><%= link_to 'Sign Up', new_user_registration_path %></li>
         			<li><%= link_to 'Sign in', new_user_session_path %></li>
