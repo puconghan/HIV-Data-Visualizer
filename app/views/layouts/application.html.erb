@@ -25,9 +25,12 @@
 		 map.addRow([v.name, parseFloat(v.value), v.displayname]);
           });
 
+            var options = {};
+            options['colors'] = [0xc0c0c0, 0xf00000, 0xff0000];
+          
           var geomap = new google.visualization.GeoMap(
             document.getElementById('visualization'));
-          geomap.draw(map, null);
+          geomap.draw(map, options);
       });
    });
 
