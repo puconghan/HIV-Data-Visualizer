@@ -70,5 +70,7 @@ module HIVDataFetcher
         g.view_specs false
         g.helper_specs false
     end
+    
+    config.filter_parameters += [:password, :password_confirmation]
   end
 end

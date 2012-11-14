@@ -1,24 +1,28 @@
 [
   {
     "username":"puconghan",
+    "email": "ph2369@columbia.edu"
     "password":"ase",
     "priority":"high",
     "basedcountry":"China"
   },
   {
     "username":"shujianbu",
+    "email": "sb3331@columbia.edu"
     "password":"ase",
     "priority":"high",
     "basedcountry":"China"
   },
   {
     "username":"taocheng",
+    "email": "tc2569@columbia.edu"
     "password":"ase",
     "priority":"high",
     "basedcountry":"China"
   },
   {
     "username":"nanzhuwang",
+    "email": "nw2260@columbia.edu"
     "password":"ase",
     "priority":"high",
     "basedcountry":"China"
